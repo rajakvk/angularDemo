@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>Math Calculator</title>
+    <style type="text/css">
+        input, button { padding: 10px;}
+    </style>
+    <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
+
+</head>
+<body>
+    <input type="text" id="textNumber1" ng-model="calculator.number1" />
+    <input type="text" id="textNumber2" ng-model="calculator.number2" />
+    <br/> <br/>
+    <button ng-click="calculator.add()">Add</button>
+    <button ng-click="calculator.sub()">Subract</button>
+    <button ng-click="calculator.mul()">Multiply</button>
+    <button ng-click="calculator.div()">Divide</button>
+    <br/><br/>
+    <label ng-bind="calculator.result"></label>
+    <script type="text/javascript">
+        angular.bootstrap(document.body, []);
+        var scope = angular.element(document.body).scope();
+
+        String.prototype.toInt = function(){ return parseInt(this, 10); };
+        // model
+        function Calculator() {
+            this.number1 = "0";
+            this.number2 = "0";
+            this.result  = "0";
+        }
+        Calculator.prototype.add = function(){
+            this.result = this.number1.toInt() + this.number2.toInt();
+        }
+        Calculator.prototype.sub = function(){
+            this.result = this.number1.toInt() - this.number2.toInt();
+        }
+        Calculator.prototype.mul = function(){
+            this.result = this.number1.toInt() * this.number2.toInt();
+        }
+        Calculator.prototype.div = function(){
+            this.result = this.number1.toInt() / this.number2.toInt();
+        }
+
+        scope.calculator = new Calculator();
+        scope.$apply();
+
+
+    </script>
+</body>
+</html>
