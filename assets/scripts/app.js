@@ -22,12 +22,32 @@ if(!String.toInt) {
 
 }
 
+// Class - Model
+function SalaryCalculator(){
 
+    this.basic  = 0;
+    this.hra    = 0;
+    this.salary = 0;
+
+}
+
+// method - Behaviour
+SalaryCalculator.prototype.calculate = function() {
+
+    this.salary  = this.basic + this.hra;
+    return this.salary;
+
+}
+
+// Interfacing method with view
 function calculate() {
 
-    var basic   = document.querySelector('#basic').value.toInt(),
-        hra     = document.querySelector('#hra').value.toInt(),
-        salary  = basic + hra;
+    var calculator = new SalaryCalculator();
+        calculator.basic   = document.querySelector('#basic').value.toInt(),
+        calculator.hra     = document.querySelector('#hra').value.toInt();
+
+        // Calculate depends on basic, hra value (to be populated before invoking)
+        var salary = calculator.calculate();
 
     document.querySelector('#salary span').innerHTML = salary;
 
