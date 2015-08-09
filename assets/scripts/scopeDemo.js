@@ -40,17 +40,29 @@ function calculate(){
     });
 }
 
-scope.$watch("calculator.basic", function(newValue, oldValue){
-    document.querySelector('#basic').innerHTML = newValue;
-    var salary = newValue.toInt() + scope.calculator.hra.toInt();
-    document.querySelector('#salary span').innerHTML = salary;
-});
+function bindDirective() {
+    var ele = document.querySelectorAll('input[app-model]');
+    for(var i=0;i<ele.length;i++) {
+        var model = ele[i].attributes['app-model'].value;
+        scope.$watch(model, function(newValue, oldValue){
+            ele.innerHTML = newValue;
+            var salary = newValue.toInt() + scope.calculator.hra.toInt();
+            document.querySelector('#salary span').innerHTML = salary;
+        });
+    }
+}
 
-scope.$watch("calculator.hra", function(newValue, oldValue){
-    document.querySelector('#hra').innerHTML = newValue;
-    var salary = scope.calculator.basic.toInt() + newValue.toInt();
-    document.querySelector('#salary span').innerHTML = salary;
-});
+// scope.$watch("calculator.basic", function(newValue, oldValue){
+//     document.querySelector('#basic').innerHTML = newValue;
+//     var salary = newValue.toInt() + scope.calculator.hra.toInt();
+//     document.querySelector('#salary span').innerHTML = salary;
+// });
+
+// scope.$watch("calculator.hra", function(newValue, oldValue){
+//     document.querySelector('#hra').innerHTML = newValue;
+//     var salary = scope.calculator.basic.toInt() + newValue.toInt();
+//     document.querySelector('#salary span').innerHTML = salary;
+// });
 
 scope.$watch("calculator.salary", function(newValue, oldValue){
     document.querySelector('#salary span').innerHTML = newValue;
@@ -59,3 +71,5 @@ scope.$watch("calculator.salary", function(newValue, oldValue){
 document.querySelector('#basic').onchange = basicChange;
 document.querySelector('#hra').onchange = hraChange;
 document.querySelector('#calculate').onclick = calculate;
+
+bindDirective();
