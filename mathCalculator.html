@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Math Calculator</title>
+    <style type="text/css">
+        input, button { padding: 10px;}
+    </style>
+    <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
+</head>
+<body>
+    <input type="text" id="textNumber1" app-model="calculator.number1" />
+    <input type="text" id="textNumber2" app-model="calculator.number1" />
+    <br/> <br/>
+    <button app-click="calculator.add()">Add</button>
+    <button app-click="calculator.sub()">Subract</button>
+    <button app-click="calculator.mul()">Multiply</button>
+    <button app-click="calculator.div()">Divide</button>
+
+</body>
+</html>
