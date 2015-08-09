@@ -28,6 +28,7 @@ function SalaryCalculator(){
     this.basic  = 0;
     this.hra    = 0;
     this.salary = 0;
+    this.onSalaryChange = null;
 
 }
 
@@ -35,7 +36,8 @@ function SalaryCalculator(){
 SalaryCalculator.prototype.calculate = function() {
 
     this.salary  = this.basic + this.hra;
-    return this.salary;
+    if(typeof this.onSalaryChange === 'function')
+        this.onSalaryChange();
 
 }
 
@@ -54,10 +56,13 @@ function updateHra() {
 // Interfacing method with view
 function calculate() {
 
-    var salary = calculator.calculate();
+    calculator.calculate();
 
-    // still view not dumb enough; after invoking calculate method only salary updated
-    document.querySelector('#salary span').innerHTML = salary;
+}
+
+calculator.onSalaryChange = function() {
+
+    document.querySelector('#salary span').innerHTML = calculator.salary;
 
 }
 
