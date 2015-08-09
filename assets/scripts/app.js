@@ -25,19 +25,39 @@ if(!String.toInt) {
 // Class - Model
 function SalaryCalculator(){
 
-    this.basic  = 0;
-    this.hra    = 0;
-    this.salary = 0;
-    this.onSalaryChange = null;
+    var data = {
+        basic  : 0,
+        hra    : 0,
+        salary : 0
+    },
+    listenerFns = {
+        basic   : null,
+        hra     : null
+    };
+
+    this.get = function(id) {
+        return data[id];
+    }
+    this.set = function(id, value){
+        data[id] = value;
+        var listenerFn = listenerFns[id];
+        if(typeof listenerFn === 'function')
+            listenerFn();
+    }
+    this.addEventListener = function(id, listenerFn) {
+        listenerFns[id] = listenerFn;
+    }
+    //this.onSalaryChange = null;
 
 }
 
 // method - Behaviour
 SalaryCalculator.prototype.calculate = function() {
 
-    this.salary  = this.basic + this.hra;
-    if(typeof this.onSalaryChange === 'function')
-        this.onSalaryChange();
+    var salary = this.get('basic') + this.get('hra');
+    this.set('salary', salary);
+    /*if(typeof this.onSalaryChange === 'function')
+        this.onSalaryChange();*/
 
 }
 
@@ -45,12 +65,12 @@ var calculator = new SalaryCalculator();
 
 function updateBasic() {
 
-    calculator.basic = document.querySelector('#basic').value.toInt();
+    calculator.set('basic', document.querySelector('#basic').value.toInt());
 }
 
 function updateHra() {
 
-    calculator.hra = document.querySelector('#hra').value.toInt();
+    calculator.set('hra', document.querySelector('#hra').value.toInt());
 }
 
 // Interfacing method with view
@@ -60,11 +80,22 @@ function calculate() {
 
 }
 
-calculator.onSalaryChange = function() {
+calculator.addEventListener('basic', function() {
 
-    document.querySelector('#salary span').innerHTML = calculator.salary;
+    document.querySelector('#basic').value = calculator.get('basic');
 
-}
+});
+calculator.addEventListener('hra', function() {
+
+    document.querySelector('#hra').value = calculator.get('hra');
+
+});
+
+calculator.addEventListener('salary', function() {
+
+    document.querySelector('#salary span').innerHTML = calculator.get('salary');
+
+});
 
 document.querySelector('#calculate').onclick = calculate;
 document.querySelector('#basic').onchange = updateBasic;
