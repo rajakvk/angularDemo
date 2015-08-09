@@ -11,7 +11,7 @@
         <label for="basic">Basic: <input type="text" id="basic" app-model="calculator.basic" /> </label>
         <label for="hra">HRA: <input type="text" id="hra" app-model="calculator.hra" /> </label>
         <label id="salary">Salary: <span app-bind="calculator.salary">0</span> </label>
-        <button id="calculate">Calculate</button>
+        <button id="calculate" app-click="calculator.calculate()">Calculate</button>
     </fieldset>
     <script type="text/javascript" src="assets/scripts/scopeDemo.js"></script>
 </body>
