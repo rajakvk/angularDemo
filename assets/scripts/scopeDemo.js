@@ -1,4 +1,8 @@
 // required angular.min.js 
+String.prototype.toInt = function(){
+    return parseInt(this, 10);
+}
+
 angular.bootstrap(document.body, []);
 var scope = angular.element(document.body).scope();
 
@@ -8,6 +12,10 @@ function SalaryCalculator(){
     this.hra    = 0;
     this.salary = 0;
 
+}
+
+SalaryCalculator.prototype.calculate = function(){
+    this.salary = this.basic.toInt() + this.hra.toInt();
 }
 
 scope.calculator = new SalaryCalculator();
@@ -28,17 +36,19 @@ function hraChange(){
 
 function calculate(){
     scope.$apply(function(){
-        scope.calculator.salary = parseInt(scope.calculator.basic) + parseInt(scope.calculator.hra);
+        scope.calculator.calculate();
     });
 }
 
 scope.$watch("calculator.basic", function(newValue, oldValue){
-    var salary = parseInt(newValue) + parseInt(scope.calculator.hra);
+    document.querySelector('#basic').innerHTML = newValue;
+    var salary = newValue.toInt() + scope.calculator.hra.toInt();
     document.querySelector('#salary span').innerHTML = salary;
 });
 
 scope.$watch("calculator.hra", function(newValue, oldValue){
-    var salary = parseInt(newValue) + parseInt(scope.calculator.basic);
+    document.querySelector('#hra').innerHTML = newValue;
+    var salary = scope.calculator.basic.toInt() + newValue.toInt();
     document.querySelector('#salary span').innerHTML = salary;
 });
 
