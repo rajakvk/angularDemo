@@ -15,24 +15,24 @@ function SalaryCalculator(){
 }
 
 SalaryCalculator.prototype.calculate = function(){
-    this.salary = this.basic.toInt() + this.hra.toInt();
+    this.salary = this.basic + this.hra;
 }
 
 scope.calculator = new SalaryCalculator();
 
-function basicChange(){
-    var that = this;
-    scope.$apply(function(){
-        scope.calculator.basic = that.value;
-    });
-}
+// function basicChange(){
+//     var that = this;
+//     scope.$apply(function(){
+//         scope.calculator.basic = that.value;
+//     });
+// }
 
-function hraChange(){
-    var that = this;
-    scope.$apply(function(){
-        scope.calculator.hra = that.value;
-    });
-}
+// function hraChange(){
+//     var that = this;
+//     scope.$apply(function(){
+//         scope.calculator.hra = that.value;
+//     });
+// }
 
 function calculate(){
     scope.$apply(function(){
@@ -43,12 +43,20 @@ function calculate(){
 function bindDirective() {
     var ele = document.querySelectorAll('input[app-model]');
     for(var i=0;i<ele.length;i++) {
+        
         var model = ele[i].attributes['app-model'].value;
+        var that = ele[i];
         scope.$watch(model, function(newValue, oldValue){
-            ele.innerHTML = newValue;
-            var salary = newValue.toInt() + scope.calculator.hra.toInt();
-            document.querySelector('#salary span').innerHTML = salary;
+            that.innerHTML = newValue;
         });
+
+        ele[i].onchange = function(){
+            var that = this;
+            var model = this.attributes['app-model'].value;
+            scope.$apply(function(){
+                scope.$eval(model +' = ' + that.value);
+            });
+        }
     }
 }
 
@@ -68,8 +76,8 @@ scope.$watch("calculator.salary", function(newValue, oldValue){
     document.querySelector('#salary span').innerHTML = newValue;
 });
 
-document.querySelector('#basic').onchange = basicChange;
-document.querySelector('#hra').onchange = hraChange;
+// document.querySelector('#basic').onchange = basicChange;
+// document.querySelector('#hra').onchange = hraChange;
 document.querySelector('#calculate').onclick = calculate;
 
 bindDirective();
