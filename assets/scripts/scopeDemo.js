@@ -60,18 +60,20 @@ function onewayDirective() {
 function appClickDirective() {
     var ele = document.querySelectorAll('[app-click]');
     for(var i=0;i<ele.length;i++) {
-        var that = ele[i];
-        ele[i].onclick = function(){
-            var model = that.attributes['app-click'].value;
-            scope.$apply(function(){
-                scope.$eval(model);
-            })
-        }
+        var k = function(){
+            var that = ele[i];
+            ele[i].onclick = function(){
+                var model = that.attributes['app-click'].value;
+                scope.$apply(function(){
+                    scope.$eval(model);
+                })
+            }
+        }()
     }
 }
-scope.$watch('calculator.salary', function(newValue, oldValue){
-    document.querySelector('#salary').innerHTML = newValue;
-});
+// scope.$watch('calculator.salary', function(newValue, oldValue){
+//     document.querySelector('#salary').innerHTML = newValue;
+// });
 // document.querySelector('#calculate').onclick = calculate;
 
 bindDirective();

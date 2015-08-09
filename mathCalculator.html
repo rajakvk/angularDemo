@@ -5,6 +5,18 @@
         input, button { padding: 10px;}
     </style>
     <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
+
+</head>
+<body>
+    <input type="text" id="textNumber1" app-model="calculator.number1" />
+    <input type="text" id="textNumber2" app-model="calculator.number2" />
+    <br/> <br/>
+    <button app-click="calculator.add()">Add</button>
+    <button app-click="calculator.sub()">Subract</button>
+    <button app-click="calculator.mul()">Multiply</button>
+    <button app-click="calculator.div()">Divide</button>
+    <br/><br/>
+    <label app-bind="calculator.result"></label>
     <script type="text/javascript">
         angular.bootstrap(document.body, []);
         var scope = angular.element(document.body).scope();
@@ -13,34 +25,74 @@
 
         // model
         function Calculator() {
-            this.number1 = "0";
-            this.number2 = "0";
-            this.result  = "0";
+            this.number1 = 0;
+            this.number2 = 0;
+            this.result  = 0;
         }
         Calculator.prototype.add = function(){
-            this.result = this.number1.toInt() + this.number2.toInt();
+            this.result = this.number1 + this.number2;
         }
         Calculator.prototype.sub = function(){
-            this.result = this.number1.toInt() - this.number2.toInt();
+            this.result = this.number1 - this.number2;
         }
         Calculator.prototype.mul = function(){
-            this.result = this.number1.toInt() * this.number2.toInt();
+            this.result = this.number1 * this.number2;
         }
         Calculator.prototype.div = function(){
-            this.result = this.number1.toInt() / this.number2.toInt();
+            this.result = this.number1 / this.number2;
         }
 
+        scope.calculator = new Calculator();
 
+        function bindDirective() {
+            var ele = document.querySelectorAll('input[app-model]');
+            for(var i=0;i<ele.length;i++) {
+
+                var model = ele[i].attributes['app-model'].value;
+                var that = ele[i];
+                scope.$watch(model, function(newValue, oldValue){
+                    that.innerHTML = newValue;
+                });
+
+                ele[i].onchange = function(){
+                    var that = this;
+                    var model = this.attributes['app-model'].value;
+                    scope.$apply(function(){
+                        scope.$eval(model +' = ' + that.value);
+                    });
+                }
+            }
+        }
+
+        function onewayDirective() {
+            var ele = document.querySelectorAll('[app-bind]');
+            for(var i=0;i<ele.length;i++) {
+                var model = ele[i].attributes['app-bind'].value;
+                var that = ele[i];
+                scope.$watch(model, function(newValue, oldValue){
+                    that.innerHTML = newValue;
+                });
+            }
+        }
+
+        function appClickDirective() {
+            var ele = document.querySelectorAll('[app-click]');
+            for(var i=0;i<ele.length;i++) {
+                var k = function(){
+                    var that = ele[i];
+                    ele[i].onclick = function(){
+                        var model = that.attributes['app-click'].value;
+                        scope.$apply(function(){
+                            scope.$eval(model);
+                        })
+                    }
+                }()
+            }
+        }
+
+        bindDirective();
+        onewayDirective();
+        appClickDirective();
     </script>
-</head>
-<body>
-    <input type="text" id="textNumber1" app-model="calculator.number1" />
-    <input type="text" id="textNumber2" app-model="calculator.number1" />
-    <br/> <br/>
-    <button app-click="calculator.add()">Add</button>
-    <button app-click="calculator.sub()">Subract</button>
-    <button app-click="calculator.mul()">Multiply</button>
-    <button app-click="calculator.div()">Divide</button>
-
 </body>
 </html>
