@@ -43,7 +43,7 @@ function calculate(){
 function bindDirective() {
     var ele = document.querySelectorAll('input[app-model]');
     for(var i=0;i<ele.length;i++) {
-        
+
         var model = ele[i].attributes['app-model'].value;
         var that = ele[i];
         scope.$watch(model, function(newValue, oldValue){
@@ -60,6 +60,16 @@ function bindDirective() {
     }
 }
 
+function onewayDirective() {
+    var ele = document.querySelectorAll('[app-bind]');
+    for(var i=0;i<ele.length;i++) {
+        var model = ele[i].attributes['app-bind'].value;
+        var that = ele[i];
+        scope.$watch(model, function(newValue, oldValue){
+            that.innerHTML = newValue;
+        });
+    }
+}
 // scope.$watch("calculator.basic", function(newValue, oldValue){
 //     document.querySelector('#basic').innerHTML = newValue;
 //     var salary = newValue.toInt() + scope.calculator.hra.toInt();
@@ -72,12 +82,13 @@ function bindDirective() {
 //     document.querySelector('#salary span').innerHTML = salary;
 // });
 
-scope.$watch("calculator.salary", function(newValue, oldValue){
-    document.querySelector('#salary span').innerHTML = newValue;
-});
+// scope.$watch("calculator.salary", function(newValue, oldValue){
+//     document.querySelector('#salary span').innerHTML = newValue;
+// });
 
 // document.querySelector('#basic').onchange = basicChange;
 // document.querySelector('#hra').onchange = hraChange;
 document.querySelector('#calculate').onclick = calculate;
 
 bindDirective();
+onewayDirective();
