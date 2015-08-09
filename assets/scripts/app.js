@@ -39,18 +39,28 @@ SalaryCalculator.prototype.calculate = function() {
 
 }
 
+var calculator = new SalaryCalculator();
+
+function updateBasic() {
+
+    calculator.basic = document.querySelector('#basic').value.toInt();
+}
+
+function updateHra() {
+
+    calculator.hra = document.querySelector('#hra').value.toInt();
+}
+
 // Interfacing method with view
 function calculate() {
 
-    var calculator = new SalaryCalculator();
-        calculator.basic   = document.querySelector('#basic').value.toInt(),
-        calculator.hra     = document.querySelector('#hra').value.toInt();
+    var salary = calculator.calculate();
 
-        // Calculate depends on basic, hra value (to be populated before invoking)
-        var salary = calculator.calculate();
-
+    // still view not dumb enough; after invoking calculate method only salary updated
     document.querySelector('#salary span').innerHTML = salary;
 
 }
 
 document.querySelector('#calculate').onclick = calculate;
+document.querySelector('#basic').onchange = updateBasic;
+document.querySelector('#hra').onchange = updateHra;
