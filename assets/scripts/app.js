@@ -22,6 +22,7 @@ if(!String.toInt) {
 
 }
 
+
 function calculate() {
 
     var basic   = document.querySelector('#basic').value.toInt(),
@@ -31,3 +32,5 @@ function calculate() {
     document.querySelector('#salary span').innerHTML = salary;
 
 }
+
+document.querySelector('#calculate').onclick = calculate;
