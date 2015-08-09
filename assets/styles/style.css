@@ -1,0 +1,25 @@
+fieldset {
+    float: left;
+}
+
+legend {
+    font-size: 22px;
+}
+
+fieldset label {
+    display: block;
+    margin: 10px 0;
+}
+
+fieldset input {
+    display: block;
+    padding: 10px;
+}
+
+fieldset button {
+    padding: 10px;
+}
+
+#salary {
+    padding: 10px 0;
+}
