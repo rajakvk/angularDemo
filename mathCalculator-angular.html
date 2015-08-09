@@ -7,7 +7,7 @@
     <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
 
 </head>
-<body>
+<body ng-app="calculatorApp">
     <input type="text" id="textNumber1" ng-model="calculator.number1" />
     <input type="text" id="textNumber2" ng-model="calculator.number2" />
     <br/> <br/>
@@ -18,8 +18,8 @@
     <br/><br/>
     <label ng-bind="calculator.result"></label>
     <script type="text/javascript">
-        angular.bootstrap(document.body, []);
-        var scope = angular.element(document.body).scope();
+        // angular.bootstrap(document.body, []);
+        // var scope = angular.element(document.body).scope();
 
         String.prototype.toInt = function(){ return parseInt(this, 10); };
         // model
@@ -41,8 +41,14 @@
             this.result = this.number1.toInt() / this.number2.toInt();
         }
 
-        scope.calculator = new Calculator();
-        scope.$apply();
+        // scope.calculator = new Calculator();
+        // scope.$apply();
+
+        angular
+            .module('calculatorApp', [])
+            .run(function($rootScope){
+                $rootScope.calculator = new Calculator();
+            });
 
 
     </script>
