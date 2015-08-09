@@ -6,8 +6,31 @@
     </style>
     <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
     <script type="text/javascript">
-        angular.bootrap(document.body, []);
-        var scope = angular.element(document.body).scope();        
+        angular.bootstrap(document.body, []);
+        var scope = angular.element(document.body).scope();
+
+        String.prototype.toInt = function() { return parseInt(this, 10); };
+
+        // model
+        function Calculator() {
+            this.number1 = "0";
+            this.number2 = "0";
+            this.result  = "0";
+        }
+        Calculator.prototype.add = function(){
+            this.result = this.number1.toInt() + this.number2.toInt();
+        }
+        Calculator.prototype.sub = function(){
+            this.result = this.number1.toInt() - this.number2.toInt();
+        }
+        Calculator.prototype.mul = function(){
+            this.result = this.number1.toInt() * this.number2.toInt();
+        }
+        Calculator.prototype.div = function(){
+            this.result = this.number1.toInt() / this.number2.toInt();
+        }
+
+
     </script>
 </head>
 <body>
