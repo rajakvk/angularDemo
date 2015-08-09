@@ -63,42 +63,49 @@ SalaryCalculator.prototype.calculate = function() {
 
 }
 
+function SalaryCalculatorView(calculator, $root) {
+
+    function updateBasic() {
+
+        calculator.set('basic', document.querySelector($root + '#basic').value.toInt());
+    }
+
+    function updateHra() {
+
+        calculator.set('hra', document.querySelector($root + '#hra').value.toInt());
+    }
+
+    // Interfacing method with view
+    function calculate() {
+
+        calculator.calculate();
+
+    }
+
+    calculator.addEventListener('basic', function() {
+
+        document.querySelector($root + '#basic').value = calculator.get('basic');
+
+    });
+    calculator.addEventListener('hra', function() {
+
+        document.querySelector($root + '#hra').value = calculator.get('hra');
+
+    });
+
+    calculator.addEventListener('salary', function() {
+
+        document.querySelector($root + '#salary span').innerHTML = calculator.get('salary');
+
+    });
+
+    document.querySelector($root + '#calculate').onclick = calculate;
+    document.querySelector($root + '#basic').onchange = updateBasic;
+    document.querySelector($root + '#hra').onchange = updateHra;
+
+}
+
 var calculator = new SalaryCalculator();
+SalaryCalculatorView(calculator, '#view1 ');
+SalaryCalculatorView(calculator, '#view2 ');
 
-function updateBasic() {
-
-    calculator.set('basic', document.querySelector('#basic').value.toInt());
-}
-
-function updateHra() {
-
-    calculator.set('hra', document.querySelector('#hra').value.toInt());
-}
-
-// Interfacing method with view
-function calculate() {
-
-    calculator.calculate();
-
-}
-
-calculator.addEventListener('basic', function() {
-
-    document.querySelector('#basic').value = calculator.get('basic');
-
-});
-calculator.addEventListener('hra', function() {
-
-    document.querySelector('#hra').value = calculator.get('hra');
-
-});
-
-calculator.addEventListener('salary', function() {
-
-    document.querySelector('#salary span').innerHTML = calculator.get('salary');
-
-});
-
-document.querySelector('#calculate').onclick = calculate;
-document.querySelector('#basic').onchange = updateBasic;
-document.querySelector('#hra').onchange = updateHra;
