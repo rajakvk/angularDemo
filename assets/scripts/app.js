@@ -31,8 +31,9 @@ function SalaryCalculator(){
         salary : 0
     },
     listenerFns = {
-        basic   : null,
-        hra     : null
+        basic   : [],
+        hra     : [],
+        salary  : []
     };
 
     this.get = function(id) {
@@ -40,12 +41,13 @@ function SalaryCalculator(){
     }
     this.set = function(id, value){
         data[id] = value;
-        var listenerFn = listenerFns[id];
-        if(typeof listenerFn === 'function')
+        var listenerFnArr = listenerFns[id];
+        listenerFnArr.forEach(function(listenerFn){
             listenerFn();
+        });
     }
     this.addEventListener = function(id, listenerFn) {
-        listenerFns[id] = listenerFn;
+        listenerFns[id].push(listenerFn);
     }
     //this.onSalaryChange = null;
 
