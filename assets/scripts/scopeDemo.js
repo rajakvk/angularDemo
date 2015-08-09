@@ -2,15 +2,13 @@
 angular.bootstrap(document.body, []);
 var scope = angular.element(document.body).scope();
 
-scope.$watch("name", function(newValue, oldValue){
-    console.log('old value:' + oldValue + " new value: "+ newValue);
-});
+function SalaryCalculator(){
 
-scope.$apply(function(){
-    scope.name = 'rajakvk';
-});
+    this.basic  = 0;
+    this.hra    = 0;
+    this.salary = 0;
 
-scope.$apply(function(){
-    scope.name = 'ashok';
-});
+}
+
+scope.calculator = new SalaryCalculator();
 
