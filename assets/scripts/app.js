@@ -25,16 +25,8 @@ if(!String.toInt) {
 // Class - Model
 function SalaryCalculator(){
 
-    var data = {
-        basic  : 0,
-        hra    : 0,
-        salary : 0
-    },
-    listenerFns = {
-        basic   : [],
-        hra     : [],
-        salary  : []
-    };
+    var data = {},
+    listenerFns = {};
 
     this.get = function(id) {
         return data[id];
@@ -47,9 +39,9 @@ function SalaryCalculator(){
         });
     }
     this.addEventListener = function(id, listenerFn) {
+        listenerFns[id] = listenerFns[id] || [];
         listenerFns[id].push(listenerFn);
     }
-    //this.onSalaryChange = null;
 
 }
 
@@ -58,8 +50,6 @@ SalaryCalculator.prototype.calculate = function() {
 
     var salary = this.get('basic') + this.get('hra');
     this.set('salary', salary);
-    /*if(typeof this.onSalaryChange === 'function')
-        this.onSalaryChange();*/
 
 }
 
@@ -108,4 +98,3 @@ function SalaryCalculatorView(calculator, $root) {
 var calculator = new SalaryCalculator();
 SalaryCalculatorView(calculator, '#view1 ');
 SalaryCalculatorView(calculator, '#view2 ');
-
