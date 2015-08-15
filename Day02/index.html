@@ -81,6 +81,7 @@
         <div class="search">
             <input type="text" ng-model="searchBug.title" />
             <input type="checkbox" ng-model="searchBug.isClosed" />
+            <input type="button" value="Display All" ng-click="searchBug.isClosed = undefined" />
         </div>
         <div class="bugsList">
             <label for="">Bugs :</label>
