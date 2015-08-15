@@ -41,7 +41,6 @@
                 { title: 'marketing carousal missing', isClosed: false }
             ];
             $scope.addBug = function(newBugTitle){
-                //$scope.bugs.push($scope.newBugnewBugTitle);
                 var newBug = {
                     title: newBugTitle,
                     isClosed: false
@@ -75,14 +74,16 @@
             <span class="delimit">/</span>
             <span>{{bugs.length}}</span>
         </div>
-        <div class="search"></div>
+        <div class="search">
+            <input type="text" ng-model="searchBug" />
+        </div>
         <div class="bugsList">
             <label for="">Bugs :</label>
             <input type="text" name="" id="" ng-model="newBug">
             <input type="button" ng-click="addBug(newBug) " value="Add Bug">
             <input ng-click="removeClosed()" type="button" value="Remove Closed">
             <ol>
-                <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs" ng-click="toggleBug(bug);">{{bug}}</li>
+                <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs | filter:searchBug" ng-click="toggleBug(bug);">{{bug.title}}</li>
             </ol>
         </div>
     </div>
