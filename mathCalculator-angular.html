@@ -16,7 +16,7 @@
     <button ng-click="calculator.mul()">Multiply</button>
     <button ng-click="calculator.div()">Divide</button>
     <br/><br/>
-    <label ng-bind="calculator.result | currency"></label>
+    <label>{{calculator.result | currency:'Rs:'}}</label>
     <br/><br/><br/><br/>
 
     <script type="text/javascript">
