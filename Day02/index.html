@@ -27,6 +27,9 @@
             font-weight: bold;
             font-style: italic;
         }
+        li {
+            cursor: pointer;
+        }
     </style>
     <script src="../assets/scripts/angular.min.js"></script>
     <script>
@@ -42,6 +45,9 @@
                 //$scope.bugs.push($scope.newBugnewBugTitle);
                 $scope.bugs.push(newBugTitle);
                 $scope.newBug = '';
+            }
+            $scope.toggleBug = function(bug){
+                bug.isClosed = !bug.isClosed;
             }
         });
     </script>
@@ -61,7 +67,7 @@
             <input type="button" ng-click="addBug(newBug) " value="Add Bug">
             <input type="button" value="Remove Closed">
             <ol>
-                <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs">{{bug}}</li>
+                <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs" ng-click="toggleBug(bug);">{{bug}}</li>
             </ol>
         </div>
     </div>
