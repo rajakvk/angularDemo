@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,9 @@
         Use cases
         1) Display a list of bugs - done
         2) Add a new bug - done
-        3) Toggle the 'closed' status of the bug
-        4) Remove closed bugs
-        5) Display stats (close $ / total #)
+        3) Toggle the 'closed' status of the bug - done
+        4) Remove closed bugs - done
+        5) Display stats (close $ / total #) - done
         6) Search bugs
         7) Sort the bugs
         8) Limit the size of the bug text
@@ -40,14 +40,29 @@
                 { title: 'header layout breaks', isClosed: true },
                 { title: 'marketing carousal missing', isClosed: false }
             ];
-            //$scope.newBug = '';
             $scope.addBug = function(newBugTitle){
                 //$scope.bugs.push($scope.newBugnewBugTitle);
-                $scope.bugs.push(newBugTitle);
+                var newBug = {
+                    title: newBugTitle,
+                    isClosed: false
+                }
+                $scope.bugs.push(newBug);
                 $scope.newBug = '';
             }
             $scope.toggleBug = function(bug){
                 bug.isClosed = !bug.isClosed;
+            }
+            $scope.removeClosed = function() {
+                for(var i=$scope.bugs.length-1;i>=0;i--) {
+                    bug = $scope.bugs[i];
+                    if(bug.isClosed)
+                        $scope.bugs.splice(i,1);
+                }
+            }
+            $scope.getClosedCount = function(){
+                return $scope.bugs.filter(function(bug){
+                    return bug.isClosed;
+                }).length;
             }
         });
     </script>
@@ -56,7 +71,7 @@
     <h1>Bug Tracker</h1>
     <div class="content" ng-controller="BugsController">
         <div class="status">
-            <span class="closed"></span>
+            <span class="closed">{{getClosedCount()}}</span>
             <span class="delimit">/</span>
             <span>{{bugs.length}}</span>
         </div>
@@ -65,7 +80,7 @@
             <label for="">Bugs :</label>
             <input type="text" name="" id="" ng-model="newBug">
             <input type="button" ng-click="addBug(newBug) " value="Add Bug">
-            <input type="button" value="Remove Closed">
+            <input ng-click="removeClosed()" type="button" value="Remove Closed">
             <ol>
                 <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs" ng-click="toggleBug(bug);">{{bug}}</li>
             </ol>
