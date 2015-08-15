@@ -16,7 +16,7 @@
     <button ng-click="calculator.mul()">Multiply</button>
     <button ng-click="calculator.div()">Divide</button>
     <br/><br/>
-    <label ng-bind="calculator.result"></label>
+    <label ng-bind="calculator.result | currency"></label>
     <br/><br/><br/><br/>
 
     <script type="text/javascript">
@@ -56,7 +56,7 @@
             $rootScope.version = "1.0";
         });
 
-        calculatorApp.controller('calculatorCtrl', ['$scope', function($scope){
+        calculatorApp.controller('calculatorCtrl', ['$rootScope', '$scope', function($rootScope, $scope){
             $scope.calculator = new Calculator();
         }]);
 
