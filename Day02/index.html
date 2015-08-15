@@ -29,9 +29,11 @@
                 'header layout breaks',
                 'marketing carousal missing'
             ];
-            $scope.newBug = '';
-            $scope.addBug = function(){
-                $scope.bugs.push($scope.newBug);
+            //$scope.newBug = '';
+            $scope.addBug = function(newBugTitle){
+                //$scope.bugs.push($scope.newBugnewBugTitle);
+                $scope.bugs.push(newBugTitle);
+                $scope.newBug = '';
             }
         });
     </script>
@@ -48,7 +50,7 @@
         <div class="bugsList">
             <label for="">Bugs :</label>
             <input type="text" name="" id="" ng-model="newBug">
-            <input type="button" ng-click="addBug() " value="Add Bug">
+            <input type="button" ng-click="addBug(newBug) " value="Add Bug">
             <input type="button" value="Remove Closed">
             <ol>
                 <li ng-repeat="bug in bugs">{{bug}}</li>
