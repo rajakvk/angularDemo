@@ -14,7 +14,7 @@
     <button ng-click="calculator.add()">Add</button>
     <button ng-click="calculator.sub()">Subract</button>
     <button ng-click="calculator.mul()">Multiply</button>
-    <button ng-click="calculator.div()">Divide</button>
+    <button ng-click="calculator.div()" ng-disabled="calculator.number1 ==='0' || calculator.number2 === '0'">Divide</button>
     <br/><br/>
     <label>{{calculator.result | currency:'Rs:'}}</label>
     <br/><br/><br/><br/>
