@@ -64,9 +64,9 @@
         });
 
         bugTracker.filter('limitText', function(){
-            return function(data){
-                console.log(data);
-                return 'xyz';
+            return function(data, limitLength){
+                limitLength = limitLength || 20;
+                return (data.length > limitLength) ? data.substr(0, limitLength)+'...' : data;
             }
         });
 
@@ -98,7 +98,7 @@
             <input type="button" ng-click="addBug(newBug) " value="Add Bug">
             <input ng-click="removeClosed()" type="button" value="Remove Closed">
             <ol>
-                <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs | filter:searchBug | orderBy:sortBug.attrName:sortBug.isDescending" ng-click="toggleBug(bug);">{{bug.title | limitText}}</li>
+                <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs | filter:searchBug | orderBy:sortBug.attrName:sortBug.isDescending" ng-click="toggleBug(bug);">{{bug.title | limitText:30}}</li>
             </ol>
         </div>
     </div>
