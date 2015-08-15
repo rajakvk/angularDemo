@@ -30,6 +30,9 @@
         li {
             cursor: pointer;
         }
+        div {
+            margin: 10px
+        }
     </style>
     <script src="../assets/scripts/angular.min.js"></script>
     <script>
@@ -58,11 +61,14 @@
                         $scope.bugs.splice(i,1);
                 }
             }
-            $scope.getClosedCount = function(){
-                return $scope.bugs.filter(function(bug){
-                    return bug.isClosed;
-                }).length;
-            }
+
+            // replaced by off the shelf filter
+//            $scope.getClosedCount = function(){
+//                return $scope.bugs.filter(function(bug){
+//                    return bug.isClosed;
+//                }).length;
+//            }
+
             // not mandatory
             //$scope.searchBug = {
             //    title: ''
@@ -74,21 +80,22 @@
     <h1>Bug Tracker</h1>
     <div class="content" ng-controller="BugsController">
         <div class="status">
-            <span class="closed">{{getClosedCount()}}</span>
+            <span class="closed">{{ (bugs | filter:{isClosed:true}).length }}</span>
             <span class="delimit">/</span>
             <span>{{bugs.length}}</span>
         </div>
         <div class="search">
            <label for="">Search:</label>
             <input type="text" ng-model="searchBug.title" />
-            <input type="checkbox" ng-model="searchBug.isClosed" />
+            isClosed: <input type="checkbox" ng-model="searchBug.isClosed" />
             <input type="button" value="Display All" ng-click="searchBug.isClosed = undefined" />
-            <div class="sort">
-                <label for="">Sort By:</label>
-                <input type="text" name="" id="" ng-model="sortBug.attrName">
-                <input type="checkbox" ng-model="sortBug.isDescending" />
-            </div>
         </div>
+        <div class="sort">
+            <label for="">Sort By:</label>
+            <input type="text" name="" id="" ng-model="sortBug.attrName">
+            isDescending: <input type="checkbox" ng-model="sortBug.isDescending" />
+        </div>
+
         <div class="bugsList">
             <label for="">Bugs :</label>
             <input type="text" name="" id="" ng-model="newBug">
