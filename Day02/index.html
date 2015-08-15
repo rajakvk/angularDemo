@@ -75,6 +75,7 @@
 <body ng-app="BugTracker">
     <h1>Bug Tracker</h1>
     <div class="content" ng-controller="BugsController">
+        Bug text limit(filter): <input type="range" min="0" max="100" ng-model="limitTextLength" />
         <div class="status">
             <span class="closed">{{ (bugs | filter:{isClosed:true}).length }}</span>
             <span class="delimit">/</span>
@@ -98,7 +99,7 @@
             <input type="button" ng-click="addBug(newBug) " value="Add Bug">
             <input ng-click="removeClosed()" type="button" value="Remove Closed">
             <ol>
-                <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs | filter:searchBug | orderBy:sortBug.attrName:sortBug.isDescending" ng-click="toggleBug(bug);">{{bug.title | limitText:30}}</li>
+                <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs | filter:searchBug | orderBy:sortBug.attrName:sortBug.isDescending" ng-click="toggleBug(bug);">{{bug.title | limitText:limitTextLength}}</li>
             </ol>
         </div>
     </div>
