@@ -22,7 +22,7 @@
     -->
     <script src="../assets/scripts/angular.min.js"></script>
     <script>
-        var bugTracker = angular.module('bugTracker', []);
+        var bugTracker = angular.module('BugTracker', []);
         bugTracker.controller('BugsController', function($scope){
             $scope.bugs = [
                 'authentication fails',
@@ -32,10 +32,14 @@
         });
     </script>
 </head>
-<body an-app="bugTracker">
+<body ng-app="BugTracker">
     <h1>Bug Tracker</h1>
     <div class="content" ng-controller="BugsController">
-        <div class="status"></div>
+        <div class="status">
+            <span class="closed"></span>
+            <span class="delimit">/</span>
+            <span>{{bugs.length}}</span>
+        </div>
         <div class="search"></div>
         <div class="bugsList">
             <label for="">Bugs :</label>
