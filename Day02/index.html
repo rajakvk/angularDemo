@@ -6,7 +6,7 @@
     <title>Bug tracker</title>
     <!--
         Use cases
-        1) Display a list of bugs
+        1) Display a list of bugs - done
         2) Add a new bug
         3) Toggle the 'closed' status of the bug
         4) Remove closed bugs
@@ -47,7 +47,7 @@
             <input type="button" value="Add Bug">
             <input type="button" value="Remove Closed">
             <ol>
-                <li>{{bugs}}</li>
+                <li ng-repeat="bug in bugs">{{bug}}</li>
             </ol>
         </div>
     </div>
