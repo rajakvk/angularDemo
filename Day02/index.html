@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     <title>Bug tracker</title>
     <!--
         Use cases
@@ -19,8 +20,34 @@
         
         12) Create and manage projects
     -->
+    <script src="../assets/scripts/angular.min.js"></script>
+    <script>
+        var bugTracker = angular.module('bugTracker', []);
+        bugTracker.controller('BugsController', function($scope){
+            $scope.bugs = [
+                'authentication fails',
+                'header layout breaks',
+                'marketing carousal missing'
+            ];
+        });
+    </script>
 </head>
-<body>
-    h1{Bug Tracker}+div.content>div.status+div.search+div.bugsList>label{Bugs :}+input:text+input:button[value="Add Bug"]+input:button[value="Remove Closed"]+ol>li{Bugs - $}*3
+<body an-app="bugTracker">
+    <h1>Bug Tracker</h1>
+    <div class="content" ng-controller="BugsController">
+        <div class="status"></div>
+        <div class="search"></div>
+        <div class="bugsList">
+            <label for="">Bugs :</label>
+            <input type="text" name="" id="">
+            <input type="button" value="Add Bug">
+            <input type="button" value="Remove Closed">
+            <ol>
+                <li>Bugs - 1</li>
+                <li>Bugs - 2</li>
+                <li>Bugs - 3</li>
+            </ol>
+        </div>
+    </div>
 </body>
 </html>
