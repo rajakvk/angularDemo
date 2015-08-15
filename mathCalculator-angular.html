@@ -53,14 +53,16 @@
             this.result = this.number1.toInt() / this.number2.toInt();
         }
 
-        // scope.calculator = new Calculator();
-        // scope.$apply();
+        // angular
+        //     .module('calculatorApp', [])
+        //     .run(function($rootScope){
+        //         $rootScope.calculator = new Calculator();
+        //     });
 
-        angular
-            .module('calculatorApp', [])
-            .run(function($rootScope){
-                $rootScope.calculator = new Calculator();
-            });
+        var calculatorApp = angular.module('calculatorApp', []);
+        calculatorApp.run(function($rootScope){
+            $rootScope.calculator = new Calculator();
+        });
 
 
     </script>
