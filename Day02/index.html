@@ -7,7 +7,7 @@
     <!--
         Use cases
         1) Display a list of bugs - done
-        2) Add a new bug
+        2) Add a new bug - done
         3) Toggle the 'closed' status of the bug
         4) Remove closed bugs
         5) Display stats (close $ / total #)
@@ -20,14 +20,22 @@
         
         12) Create and manage projects
     -->
+    <style>
+        .closed {
+            color: red;
+            text-decoration: line-through;
+            font-weight: bold;
+            font-style: italic;
+        }
+    </style>
     <script src="../assets/scripts/angular.min.js"></script>
     <script>
         var bugTracker = angular.module('BugTracker', []);
         bugTracker.controller('BugsController', function($scope){
             $scope.bugs = [
-                'authentication fails',
-                'header layout breaks',
-                'marketing carousal missing'
+                { title: 'authentication fails', isClosed: false },
+                { title: 'header layout breaks', isClosed: true },
+                { title: 'marketing carousal missing', isClosed: false }
             ];
             //$scope.newBug = '';
             $scope.addBug = function(newBugTitle){
@@ -53,7 +61,7 @@
             <input type="button" ng-click="addBug(newBug) " value="Add Bug">
             <input type="button" value="Remove Closed">
             <ol>
-                <li ng-repeat="bug in bugs">{{bug}}</li>
+                <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs">{{bug}}</li>
             </ol>
         </div>
     </div>
