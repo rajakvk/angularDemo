@@ -51,6 +51,7 @@
         var bugTracker = angular.module('BugTracker', []);
 
         // If not wrapped inside factory, class Bug will be in global scope
+        // factory can return
         bugTracker.factory('Bug', function(){
             function Bug(defaults){
                 defaults = defaults || {};
@@ -65,8 +66,8 @@
             return Bug;
         });
 
-        // class definition
-        function BugStorage(){
+        // service will return object by default; can't use new with service
+        bugTracker.service('bugStorage', function BugStorage(){
             this.currentBugId = 0;
             this.save = function saveBugToStorage(bug){
                 if(!bug.id) {
@@ -89,7 +90,7 @@
                 }
                 return result;
             }
-        }
+        });
 
         // new class for handling storage related
         // immediately invoking function
