@@ -48,6 +48,7 @@
     </style>
     <script src="../assets/scripts/angular.min.js"></script>
     <script src="../assets/scripts/utils.js"></script>
+    <script src="../assets/scripts/moment.js"></script>
     <script>
         var bugTracker = angular.module('BugTracker', ['utils']);
 
@@ -129,6 +130,11 @@
             }
         });
 
+        bugTracker.filter('toMoment', function(){
+            return function(data){
+                return moment(data).fromNow();
+            }
+        });
     </script>
 </head>
 <body ng-app="BugTracker">
@@ -161,7 +167,7 @@
                 <li ng-class="{closed: bug.isClosed}" ng-repeat="bug in bugs | filter:searchBug | orderBy:sortBug.attrName:sortBug.isDescending" ng-click="toggleBug(bug);">
                     <div>
                         <div class="title">{{bug.title | limitText:limitTextLength}}</div>
-                        <div class="created-at">{{bug.createdAt}}</div>
+                        <div class="created-at">{{bug.createdAt | toMoment }}</div>
                     </div>
                 </li>
             </ol>
