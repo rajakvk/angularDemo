@@ -93,10 +93,10 @@
         });
 
         // new class for handling storage related
-        // immediately invoking function
-        var bugStorage = new BugStorage();
+        // Service automatically return object
+        //var bugStorage = new BugStorage();
 
-        bugTracker.controller('BugsController', function($scope){
+        bugTracker.controller('BugsController', function($scope, bugStorage){
 
             $scope.bugs = bugStorage.getAll();
             //$scope.bugs = getAllBugsFromStorage();
