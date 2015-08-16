@@ -59,38 +59,35 @@
             this.isClosed = !this.isClosed;
         }
 
-        // new class for handling storage related
-        // immediately invoking function
-        var bugStorage = (function() {
-            var currentBugId = 0;
-            function saveBugToStorage(bug){
+        // class definition
+        function BugStorage(){
+            this.currentBugId = 0;
+            this.save = function saveBugToStorage(bug){
                 if(!bug.id) {
-                    bug.id = ++currentBugId;
+                    bug.id = ++this.currentBugId;
                 }
                 localStorage.setItem(bug.id, JSON.stringify(bug));
             }
-            function removeBugFromStorage(bug) {
+            this.remove = function removeBugFromStorage(bug) {
                 localStorage.removeItem(bug.id);
             }
-            function getAllBugsFromStorage(){
+            this.getAll = function getAllBugsFromStorage(){
                 var result = [],
                     key, dataItem, bug;
                 for(var i=localStorage.length-1;i>=0;i--) {
                     key = localStorage.key(i);
                     dataItem = localStorage.getItem(key);
                     bug = new Bug(JSON.parse(dataItem));
-                    if(currentBugId < bug.id) currentBugId = bug.id;
+                    if(this.currentBugId < bug.id) this.currentBugId = bug.id;
                     result.push(bug);
                 }
                 return result;
             }
-            // exposing only below
-            return {
-                getAll: getAllBugsFromStorage,
-                save: saveBugToStorage,
-                remove: removeBugFromStorage
-            }
-        })()
+        }
+
+        // new class for handling storage related
+        // immediately invoking function
+        var bugStorage = new BugStorage();
 
         var bugTracker = angular.module('BugTracker', []);
         bugTracker.controller('BugsController', function($scope){
