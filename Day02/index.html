@@ -14,8 +14,8 @@
         6) Search bugs - done
         7) Sort the bugs - done
         8) Limit the size of the bug text - done
-        9) Persist the bugs in local storage
-        10) Display when the bugs were created
+        9) Persist the bugs in local storage - done
+        10) Display when the bugs were created - done
         11) Persist the bugs inthe server
         
         12) Create and manage projects
@@ -130,9 +130,12 @@
             }
         });
 
-        bugTracker.filter('toMoment', function(){
+        // adding value; a way to make angular aware of third party object
+        bugTracker.value('momentApi', moment);
+        // inject momentApi; free up filter from third party object to let angular handle it
+        bugTracker.filter('toMoment', function(momentApi){
             return function(data){
-                return moment(data).fromNow();
+                return momentApi(data).fromNow();
             }
         });
     </script>
