@@ -1,7 +1,8 @@
 var utils = angular.module('utils', []);
-utils.filter('limitText', function () {
+utils.value('defaultLimitLength', 20);
+utils.filter('limitText', function (defaultLimitLength) {
     return function (data, limitLength) {
-        limitLength = limitLength || 20;
+        limitLength = limitLength || defaultLimitLength;
         return (data.length > limitLength) ? data.substr(0, limitLength) + '...' : data;
     };
 });
