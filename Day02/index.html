@@ -64,16 +64,17 @@
             function saveBugToStorage(bug){
                 if(!bug.id) {
                     bug.id = ++currentBugId;
-                    localStorage.setItem(bug.id, JSON.stringify(bug));
                 }
+                localStorage.setItem(bug.id, JSON.stringify(bug));
             }
             function getAllBugsFromStorage(){
                 var result = [],
-                    key, bug;
+                    key, dataItem, bug;
                 for(var i=localStorage.length-1;i>=0;i--) {
                     key = localStorage.key(i);
-                    bug = localStorage.getItem(key);
-                    result.push(JSON.parse(bug));
+                    dataItem = localStorage.getItem(key);
+                    bug = new Bug(JSON.parse(dataItem));
+                    result.push(bug);
                 }
                 return result;
             }
@@ -90,6 +91,7 @@
             $scope.toggleBug = function(bug){
                 //bug.isClosed = !bug.isClosed;
                 bug.toggle();
+                saveBugToStorage(bug);
             }
             $scope.removeClosed = function() {
                 for(var i=$scope.bugs.length-1;i>=0;i--) {
