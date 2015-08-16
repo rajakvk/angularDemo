@@ -48,16 +48,22 @@
     </style>
     <script src="../assets/scripts/angular.min.js"></script>
     <script>
-        function Bug(defaults){
-            defaults = defaults || {};
-            this.id = defaults.id || 0;
-            this.title = defaults.title || '';
-            this.isClosed = defaults.isClosed || false;
-            this.createdAt = defaults.createdAt || new Date();
-        }
-        Bug.prototype.toggle = function(){
-            this.isClosed = !this.isClosed;
-        }
+        var bugTracker = angular.module('BugTracker', []);
+
+        // If not wrapped inside factory, class Bug will be in global scope
+        bugTracker.factory('Bug', function(){
+            function Bug(defaults){
+                defaults = defaults || {};
+                this.id = defaults.id || 0;
+                this.title = defaults.title || '';
+                this.isClosed = defaults.isClosed || false;
+                this.createdAt = defaults.createdAt || new Date();
+            }
+            Bug.prototype.toggle = function(){
+                this.isClosed = !this.isClosed;
+            }
+            return Bug;
+        });
 
         // class definition
         function BugStorage(){
@@ -89,7 +95,6 @@
         // immediately invoking function
         var bugStorage = new BugStorage();
 
-        var bugTracker = angular.module('BugTracker', []);
         bugTracker.controller('BugsController', function($scope){
 
             $scope.bugs = bugStorage.getAll();
