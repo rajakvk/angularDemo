@@ -67,7 +67,7 @@
         });
 
         // service will return object by default; can't use new with service
-        bugTracker.service('bugStorage', function BugStorage(){
+        bugTracker.service('bugStorage', function BugStorage(Bug){
             this.currentBugId = 0;
             this.save = function saveBugToStorage(bug){
                 if(!bug.id) {
@@ -96,7 +96,7 @@
         // Service automatically return object
         //var bugStorage = new BugStorage();
 
-        bugTracker.controller('BugsController', function($scope, bugStorage){
+        bugTracker.controller('BugsController', function($scope, bugStorage, Bug){
 
             $scope.bugs = bugStorage.getAll();
             //$scope.bugs = getAllBugsFromStorage();
