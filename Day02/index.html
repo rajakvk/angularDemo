@@ -132,6 +132,9 @@
 
         // adding value; a way to make angular aware of third party object
         bugTracker.value('momentApi', moment);
+
+        // override original here
+        bugTracker.value('defaultLimitLength', 40);
         // inject momentApi; free up filter from third party object to let angular handle it
         bugTracker.filter('toMoment', function(momentApi){
             return function(data){
