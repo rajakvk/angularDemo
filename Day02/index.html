@@ -67,11 +67,17 @@
                     localStorage.setItem(bug.id, JSON.stringify(bug));
                 }
             }
-            $scope.bugs = [
-                new Bug({ id: 1, title: 'authentication fails', isClosed: false }),
-                new Bug({ id: 2, title: 'header layout breaks', isClosed: true }),
-                new Bug({ id: 3, title: 'marketing carousal missing', isClosed: false })
-            ];
+            function getAllBugsFromStorage(){
+                var result = [],
+                    key, bug;
+                for(var i=localStorage.length-1;i>=0;i--) {
+                    key = localStorage.key(i);
+                    bug = localStorage.getItem(key);
+                    result.push(JSON.parse(bug));
+                }
+                return result;
+            }
+            $scope.bugs = getAllBugsFromStorage();
             $scope.addBug = function(newBugTitle){
                 var newBug = new Bug ({
                     title: newBugTitle,
