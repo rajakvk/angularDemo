@@ -60,12 +60,15 @@
         }
         var bugTracker = angular.module('BugTracker', []);
         bugTracker.controller('BugsController', function($scope){
-            var currentBugId = 3;
+            var currentBugId = localStorage.length;
             function saveBugToStorage(bug){
                 if(!bug.id) {
                     bug.id = ++currentBugId;
                 }
                 localStorage.setItem(bug.id, JSON.stringify(bug));
+            }
+            function removeBugFromStorage(bug) {
+                localStorage.removeItem(bug.id);
             }
             function getAllBugsFromStorage(){
                 var result = [],
@@ -96,8 +99,10 @@
             $scope.removeClosed = function() {
                 for(var i=$scope.bugs.length-1;i>=0;i--) {
                     bug = $scope.bugs[i];
-                    if(bug.isClosed)
+                    if(bug.isClosed) {
+                        removeBugFromStorage(bug);
                         $scope.bugs.splice(i,1);
+                    }
                 }
             }
         });
