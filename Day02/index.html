@@ -61,22 +61,22 @@
         var bugTracker = angular.module('BugTracker', []);
         bugTracker.controller('BugsController', function($scope){
             $scope.bugs = [
-                { title: 'authentication fails', isClosed: false },
-                { title: 'header layout breaks', isClosed: true },
-                { title: 'marketing carousal missing', isClosed: false }
+                new Bug({ id: 1, title: 'authentication fails', isClosed: false }),
+                new Bug({ id: 2, title: 'header layout breaks', isClosed: true }),
+                new Bug({ id: 3, title: 'marketing carousal missing', isClosed: false })
             ];
             $scope.addBug = function(newBugTitle){
-                var newBug = {
+                var newBug = new Bug ({
                     title: newBugTitle,
                     isClosed: false
-                }
+                });
                 $scope.bugs.push(newBug);
                 $scope.newBug = '';
             }
-            // This is not interacting with view;
-//            $scope.toggleBug = function(bug){
-//                bug.isClosed = !bug.isClosed;
-//            }
+            $scope.toggleBug = function(bug){
+                //bug.isClosed = !bug.isClosed;
+                bug.toggle();
+            }
             $scope.removeClosed = function() {
                 for(var i=$scope.bugs.length-1;i>=0;i--) {
                     bug = $scope.bugs[i];
