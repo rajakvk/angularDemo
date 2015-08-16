@@ -48,6 +48,16 @@
     </style>
     <script src="../assets/scripts/angular.min.js"></script>
     <script>
+        function Bug(defaults){
+            defaults = defaults || {};
+            this.id = defaults.id || 0;
+            this.title = defaults.title || '';
+            this.isClosed = defaults.isClosed || '';
+            this.createdAt = defaults.createdAt || new Date();
+        }
+        Bug.prototype.toggle = function(){
+            this.isClosed = !this.isClosed;
+        }
         var bugTracker = angular.module('BugTracker', []);
         bugTracker.controller('BugsController', function($scope){
             $scope.bugs = [
@@ -63,9 +73,10 @@
                 $scope.bugs.push(newBug);
                 $scope.newBug = '';
             }
-            $scope.toggleBug = function(bug){
-                bug.isClosed = !bug.isClosed;
-            }
+            // This is not interacting with view;
+//            $scope.toggleBug = function(bug){
+//                bug.isClosed = !bug.isClosed;
+//            }
             $scope.removeClosed = function() {
                 for(var i=$scope.bugs.length-1;i>=0;i--) {
                     bug = $scope.bugs[i];
