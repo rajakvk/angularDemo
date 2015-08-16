@@ -48,6 +48,14 @@
     </style>
     <script src="../assets/scripts/angular.min.js"></script>
     <script>
+        var utils = angular.module('utils', []);
+        utils.filter('limitText', function(){
+            return function(data, limitLength){
+                limitLength = limitLength || 20;
+                return (data.length > limitLength) ? data.substr(0, limitLength)+'...' : data;
+            }
+        });
+
         var bugTracker = angular.module('BugTracker', []);
 
         // If not wrapped inside factory, class Bug will be in global scope
@@ -125,13 +133,6 @@
                         $scope.bugs.splice(i,1);
                     }
                 }
-            }
-        });
-
-        bugTracker.filter('limitText', function(){
-            return function(data, limitLength){
-                limitLength = limitLength || 20;
-                return (data.length > limitLength) ? data.substr(0, limitLength)+'...' : data;
             }
         });
 
